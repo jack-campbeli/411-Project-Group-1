@@ -1,0 +1,104 @@
+<!-- this file contains the code for the "game" page -->
+
+{% extends "base.jinja" %} 
+{% block title %}Game{% endblock %} 
+
+{% block content %}
+<!--  	
+npm install jquery
+npm install bootstrap
+npm install lessc
+-->
+
+<!-- datepicker -->
+{% block scripts %}
+<script>
+    $('.input-group.date').datepicker({
+        format: "mm/dd/yyyy",
+        todayBtn: "linked",
+        clearBtn: true,
+        autoclose: true,
+        todayHighlight: true
+    });
+</script>
+{% endblock %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+</head>
+
+<h1 align="center" > Test Your AI Image Generating Skills! </h1>
+
+  <body style="background-color: ivory;">
+  <br>
+    
+    <div class="input-group date" data-provide="datepicker" data-date-end-date="0d" data-date-start-date="01/01/2000">
+      <div class="text-center">
+        <form method="post" action = "/game">
+          <label for= "date"> </label>
+          <b>Change Image </b> 
+          <input type="text" name="dateInputter" class="form-control" placeholder="Select Date">
+          <div class="col-auto">
+          
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        </form>
+      </div>  
+    </div>
+
+        <!-- might not work -->
+        <div class="input-group-addon">
+            <span class="glyphicon glyphicon-th"></span>
+        </div>
+    </div>
+
+
+    <!-- image display -->
+    <br>
+    <div class="text-center">
+      {% if data_change %}
+        <img src= {{data_change.hdurl}} class="rounded" style="height: 500px;" alt="Responsive image"/>
+      {% else %}
+        <img src= {{data.hdurl}} class="rounded" style="height: 500px;" alt="Responsive image"/>
+      {% endif %}
+    </div>
+    <center>
+    <form method="post" action = "/game">
+      <center>
+        <br>
+        <label for="Name"><b>Describe the above image as best as you can.</b></label>
+      </center>
+      <br>
+      
+        <div class="col-md-10 my-1">
+        {# center the form below #}
+        
+         
+          <input type="text" name="UserDescription" class= "form-control" placeholder="Describe the Image">
+          
+        
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary">Generate</button>
+        </div>
+      </div>
+      
+    </form>
+    <br>   
+    {%if data2%} 
+      <img src= {{data2['data'][0]['url']}} style="height: 400px; width: 400px" class="img-fluid" alt="..."/> 
+      <img src= {{data2['data'][1]['url']}} style="height: 400px; width: 400px" class="img-fluid" alt="..."/>
+      <img src= {{data2['data'][2]['url']}} style="height: 400px; width: 400px" class="img-fluid" alt="..."/>
+    {% endif %}  
+
+  </body>
+
+{% endblock %}
+  
